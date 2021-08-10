@@ -1,0 +1,6 @@
+infra:
+  build: .
+  volumes:
+    - .:/infra
+    - .aws:/root/.aws
+    - ~/.ssh:/root/.ssh
