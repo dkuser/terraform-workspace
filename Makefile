@@ -8,9 +8,3 @@ push_vars:
 
 pull_vars:
 	aws s3 cp --sse="AES256" $(REMOTE_TFVARS_PATH) $(LOCAL_TFVARS_PATH)
-
-apply:
-	terraform apply -var-file=${LOCAL_TFVARS_PATH}
-
-init:
-	terraform init -var-file=${LOCAL_TFVARS_PATH}

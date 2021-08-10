@@ -1,4 +1,4 @@
-FROM hashicorp/terraform:0.15.3
+FROM alpine/terragrunt:1.0.0
 
 RUN apk update && apk upgrade
 RUN apk add bash groff openssh git vim jq make curl
@@ -20,6 +20,6 @@ ENV PS1 '\[\033[1;37m\]($(echo `terraform workspace show`)) \[\033[1;33m\]\u \[\
 
 WORKDIR /infra
 
-RUN echo 'alias t=terraform' > ~/.bashrc
+RUN echo 'alias t=terragrunt' > ~/.bashrc
 
 ENTRYPOINT "bash"
