@@ -15,5 +15,13 @@ variable "availability_zones" {
 }
 
 variable "region" {
-  
+}
+
+variable "project" {
+}
+
+variable "environment" {
+}
+
+variable "container_port" {
 }
