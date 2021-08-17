@@ -21,4 +21,9 @@ module "app" {
   task_memory     = var.task_memory
   image           = var.image
   container_port  = var.container_port
+  vpc_id          = module.network.vpc_id
+  public_subnets  = module.network.public_subnets
+  ecs_sg          = [module.security_groups.ecs_tasks]
+  alb_sg          = [module.security_groups.alb]
 }
+

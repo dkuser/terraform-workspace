@@ -42,3 +42,13 @@ module "task_definition" {
     }
   ]
 }
+
+module "alb" {
+  source                      = "../alb"
+  name                        = var.name
+  environment                 = var.environment
+  security_groups             = var.alb_sg
+  subnets                     = var.public_subnets
+  vpc_id                      = var.vpc_id
+  health_check_path           = "/health_check"
+}

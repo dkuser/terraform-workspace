@@ -10,3 +10,11 @@ variable "image" {
 }
 variable "container_port" {
 }
+variable "vpc_id" {
+}
+variable "public_subnets" {
+}
+variable "ecs_sg" {
+}
+variable "alb_sg" {
+}
