@@ -17,6 +17,7 @@ module "app" {
   source          = "./modules/app"
   name            = var.project
   environment     = var.environment
+  region          = var.region
   task_cpu        = var.task_cpu
   task_memory     = var.task_memory
   image           = var.image

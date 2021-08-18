@@ -20,3 +20,5 @@ variable "alb_sg" {
 }
 variable "private_subnets" {
 }
+variable "region" {
+}

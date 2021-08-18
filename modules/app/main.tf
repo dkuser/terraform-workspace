@@ -13,6 +13,12 @@ module "roles" {
   environment                 = var.environment
 }
 
+module "logs" {
+  source                      = "../cloudwatch"
+  environment                 = var.environment
+  name                        = var.name
+}
+
 module "task_definition" {
   source                      = "../ecs_task_definition"
   environment                 = var.environment
@@ -39,6 +45,14 @@ module "task_definition" {
           hostPort      = var.container_port
         }
       ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group = module.logs.name
+          awslogs-region = var.region
+          awslogs-stream-prefix = local.app_name
+        }
+      }
     }
   ]
 }
