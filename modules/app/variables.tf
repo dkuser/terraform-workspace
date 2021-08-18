@@ -18,3 +18,5 @@ variable "ecs_sg" {
 }
 variable "alb_sg" {
 }
+variable "private_subnets" {
+}

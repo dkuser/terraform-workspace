@@ -34,3 +34,4 @@ variable "task_cpu" {
 
 variable "task_memory" {
 }
+

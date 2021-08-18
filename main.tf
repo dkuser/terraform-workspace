@@ -25,5 +25,6 @@ module "app" {
   public_subnets  = module.network.public_subnets
   ecs_sg          = [module.security_groups.ecs_tasks]
   alb_sg          = [module.security_groups.alb]
+  private_subnets = module.network.private_subnets
 }
 
