@@ -11,6 +11,7 @@ module "cluster" {
 module "roles" {
   source                      = "../ecs_roles"
   environment                 = var.environment
+  secrets_arn                 = module.secrets.arn
 }
 
 module "logs" {
@@ -53,6 +54,8 @@ module "task_definition" {
           awslogs-stream-prefix = local.app_name
         }
       }
+      environment = module.variables.map
+      secrets = module.secrets.map
     }
   ]
 }
@@ -83,4 +86,16 @@ module "service" {
   aws_alb_target_group_arn    = module.alb.tg_arn
   container_port              = var.container_port
   container_name              = local.app_name
+}
+
+module "variables" {
+  source        = "../variables"
+  map           = var.variables
+}
+
+module "secrets" {
+  source              = "../secrets"
+  name                = var.name
+  environment         = var.environment
+  secrets             = var.secrets
 }

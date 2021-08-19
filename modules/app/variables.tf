@@ -22,3 +22,7 @@ variable "private_subnets" {
 }
 variable "region" {
 }
+variable "variables" {
+}
+variable "secrets" {
+}
