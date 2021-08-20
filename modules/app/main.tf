@@ -99,3 +99,15 @@ module "secrets" {
   environment         = var.environment
   secrets             = var.secrets
 }
+
+module "autoscaling" {
+  source                      = "../autoscaling"
+  cluster_name                = module.cluster.name
+  service_name                = module.service.name
+  cpu_average_target          = 60
+  memory_average_target       = 60
+  scale_in_cooldown           = 300
+  scale_out_cooldown          = 150
+  max_capacity                = 4
+  min_capacity                = 1
+}

@@ -36,4 +36,3 @@ module "app" {
   variables       = local.variables
   secrets         = var.secrets
 }
-
