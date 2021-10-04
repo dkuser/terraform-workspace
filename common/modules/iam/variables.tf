@@ -1,0 +1,4 @@
+variable "groups" {
+}
+variable "users" {
+}
