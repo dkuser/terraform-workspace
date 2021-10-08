@@ -26,3 +26,5 @@ variable "variables" {
 }
 variable "secrets" {
 }
+variable "domain" {
+}

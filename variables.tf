@@ -36,3 +36,5 @@ variable "task_memory" {
 }
 variable "secrets" {
 }
+variable "domain" {
+}

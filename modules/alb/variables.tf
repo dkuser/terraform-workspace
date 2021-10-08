@@ -10,3 +10,5 @@ variable "vpc_id" {
 }
 variable "health_check_path" {
 }
+variable "certificate_arn" {
+}

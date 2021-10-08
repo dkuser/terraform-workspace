@@ -35,4 +35,5 @@ module "app" {
   private_subnets = module.network.private_subnets
   variables       = local.variables
   secrets         = var.secrets
+  domain          = var.domain
 }
