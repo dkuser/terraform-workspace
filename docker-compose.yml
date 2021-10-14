@@ -1,6 +1,17 @@
-infra:
-  build: .
-  volumes:
-    - .:/infra
-    - .aws:/root/.aws
-    - ~/.ssh:/root/.ssh
+version: "3.7"
+x-aws-vault-environment: &aws-vault-environment
+  - AWS_VAULT
+  - AWS_ACCESS_KEY_ID
+  - AWS_SECRET_ACCESS_KEY
+  - AWS_SESSION_TOKEN
+  - AWS_SECURITY_TOKEN
+  - AWS_SESSION_EXPIRATION
+
+services:
+  infra:
+    build: .
+    environment: *aws-vault-environment
+    volumes:
+      - .:/infra
+      - .aws:/root/.aws
+      - ~/.ssh:/root/.ssh

@@ -106,10 +106,10 @@ module "variables" {
 }
 
 module "secrets" {
-  source      = "../secrets"
-  name        = var.project
-  environment = var.environment
-  secrets     = var.secrets
+  source         = "../secrets"
+  ssm_key_prefix = var.project
+  environment    = var.environment
+  secrets        = var.secrets
 }
 
 module "autoscaling" {

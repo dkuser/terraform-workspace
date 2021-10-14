@@ -28,7 +28,7 @@ resource "aws_iam_role" "cloudtrail_cloudwatch_role" {
 
 # This CloudWatch Group is used for storing CloudTrail logs.
 resource "aws_cloudwatch_log_group" "cloudtrail" {
-  name = "cloudtrail-events"
+  name              = "cloudtrail-events"
   retention_in_days = 0
 }
 
@@ -65,7 +65,7 @@ resource "aws_s3_bucket" "cloudtrail" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm     = "AES256"
+        sse_algorithm = "AES256"
       }
     }
   }
@@ -74,20 +74,20 @@ resource "aws_s3_bucket" "cloudtrail" {
 resource "aws_s3_bucket_public_access_block" "cloudtrail_public_access_block" {
   bucket = aws_s3_bucket.cloudtrail.id
 
-  block_public_acls = true
-  block_public_policy = true
+  block_public_acls       = true
+  block_public_policy     = true
   restrict_public_buckets = true
-  ignore_public_acls = true
+  ignore_public_acls      = true
 }
 
 data "aws_iam_policy_document" "cloudtrail_s3_policy_document" {
   statement {
     sid = "AWSCloudTrailAclCheck"
 
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["s3:GetBucketAcl"]
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["cloudtrail.amazonaws.com"]
     }
 
@@ -97,16 +97,16 @@ data "aws_iam_policy_document" "cloudtrail_s3_policy_document" {
   statement {
     sid = "AWSCloudTrailWrite"
 
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["s3:PutObject"]
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["cloudtrail.amazonaws.com"]
     }
 
     condition {
-      test = "StringEquals"
-      values = ["bucket-owner-full-control"]
+      test     = "StringEquals"
+      values   = ["bucket-owner-full-control"]
       variable = "s3:x-amz-acl"
     }
 
@@ -115,21 +115,21 @@ data "aws_iam_policy_document" "cloudtrail_s3_policy_document" {
 }
 
 resource "aws_s3_bucket_policy" "cloudtrail_s3_policy" {
-  bucket = aws_s3_bucket.cloudtrail.id
+  bucket     = aws_s3_bucket.cloudtrail.id
   depends_on = [aws_s3_bucket.cloudtrail]
-  policy = data.aws_iam_policy_document.cloudtrail_s3_policy_document.json
+  policy     = data.aws_iam_policy_document.cloudtrail_s3_policy_document.json
 }
 
 resource "aws_cloudtrail" "cloudtrail" {
   depends_on = [aws_s3_bucket_policy.cloudtrail_s3_policy, aws_s3_bucket.cloudtrail]
 
-  name = "events"
-  enable_logging = true
-  is_multi_region_trail = true
+  name                       = "events"
+  enable_logging             = true
+  is_multi_region_trail      = true
   enable_log_file_validation = true
 
   cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail.arn}:*"
-  cloud_watch_logs_role_arn = aws_iam_role.cloudtrail_cloudwatch_role.arn
+  cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_cloudwatch_role.arn
 
   s3_bucket_name = aws_s3_bucket.cloudtrail.id
 }
