@@ -48,8 +48,8 @@ resource "aws_iam_policy" "secrets" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid = "AccessSecrets"
-        Effect   = "Allow"
+        Sid    = "AccessSecrets"
+        Effect = "Allow"
         Action = [
           "secretsmanager:GetSecretValue",
         ]
@@ -72,8 +72,8 @@ resource "aws_iam_policy" "exec" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid = "AccessSecrets"
-        Effect   = "Allow"
+        Sid    = "AccessSecrets"
+        Effect = "Allow"
         Action = [
           "ssmmessages:CreateControlChannel",
           "ssmmessages:CreateDataChannel",

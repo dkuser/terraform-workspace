@@ -1,5 +1,5 @@
 output "secret_key" {
-  value = aws_iam_access_key.ecs_exec.secret
+  value     = aws_iam_access_key.ecs_exec.secret
   sensitive = true
 }
 

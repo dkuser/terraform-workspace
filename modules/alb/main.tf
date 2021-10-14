@@ -14,11 +14,11 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_alb_target_group" "main" {
-  name        = "${var.name}-tg-${var.environment}"
-  port        = 80
-  protocol    = "HTTP"
-  vpc_id      = var.vpc_id
-  target_type = "ip"
+  name                 = "${var.name}-tg-${var.environment}"
+  port                 = 80
+  protocol             = "HTTP"
+  vpc_id               = var.vpc_id
+  target_type          = "ip"
   deregistration_delay = 10
 
   health_check {
@@ -59,8 +59,8 @@ resource "aws_alb_listener" "https" {
   port              = 443
   protocol          = "HTTPS"
 
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = var.certificate_arn
+  ssl_policy      = "ELBSecurityPolicy-2016-08"
+  certificate_arn = var.certificate_arn
 
   default_action {
     target_group_arn = aws_alb_target_group.main.id

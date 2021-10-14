@@ -3,9 +3,9 @@ resource "aws_route53_zone" "zone" {
 }
 
 resource "aws_acm_certificate" "wildcard" {
-  domain_name = var.domain
+  domain_name               = var.domain
   subject_alternative_names = ["*.${var.domain}"]
-  validation_method = "DNS"
+  validation_method         = "DNS"
   lifecycle {
     create_before_destroy = true
   }
@@ -25,7 +25,7 @@ resource "aws_route53_record" "validation" {
   type            = each.value.type
   records         = [each.value.record]
   ttl             = 60
-  zone_id = aws_route53_zone.zone.id
+  zone_id         = aws_route53_zone.zone.id
 }
 
 resource "aws_acm_certificate_validation" "validation" {

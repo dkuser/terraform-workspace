@@ -1,5 +1,5 @@
 locals {
-  url = aws_ecr_repository.repo.repository_url
+  url  = aws_ecr_repository.repo.repository_url
   name = aws_ecr_repository.repo.name
 }
 

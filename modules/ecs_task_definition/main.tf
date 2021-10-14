@@ -1,5 +1,5 @@
 locals {
-  family = aws_ecs_task_definition.main.family
+  family   = aws_ecs_task_definition.main.family
   revision = max(aws_ecs_task_definition.main.revision, data.aws_ecs_task_definition.latest.revision)
 }
 

@@ -46,7 +46,7 @@ resource "aws_nat_gateway" "main" {
 
 resource "aws_eip" "nat" {
   count = length(var.private_subnets)
-  vpc = true
+  vpc   = true
 }
 
 resource "aws_route_table" "private" {

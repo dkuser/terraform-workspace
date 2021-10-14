@@ -1,4 +1,4 @@
-variable "name" { 
+variable "name" {
 }
 
 variable "vpc_id" {

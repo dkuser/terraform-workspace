@@ -1,5 +1,5 @@
 resource "tls_private_key" "ci" {
-  algorithm   = "RSA"
+  algorithm = "RSA"
 }
 
 resource "local_file" "private_key" {
@@ -11,7 +11,7 @@ resource "local_file" "private_key" {
 resource "aws_key_pair" "ci" {
   key_name   = "ci"
   public_key = tls_private_key.ci.public_key_openssh
-  tags       = {
+  tags = {
     Name = "gitlab runner key pair"
   }
 }
@@ -20,8 +20,8 @@ module "gitlab-runner" {
   source  = "npalm/gitlab-runner/aws"
   version = "4.25.0"
 
-  aws_region     = var.region
-  environment    = var.environmemnt
+  aws_region   = var.region
+  environment  = var.environmemnt
   ssh_key_pair = aws_key_pair.ci.key_name
 
   vpc_id                   = var.vpc_id

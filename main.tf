@@ -2,7 +2,7 @@ locals {
   variables = {
     PORT = var.container_port
   }
-  containers =  jsondecode(var.containers)
+  containers = jsondecode(var.containers)
 }
 
 module "network" {
