@@ -21,9 +21,10 @@ module "security_groups" {
 
 module "app" {
   source          = "./modules/app"
-  name            = var.project
+  project         = var.project
+  application     = var.application
+  containers      = var.containers
   environment     = var.environment
-  region          = var.region
   task_cpu        = var.task_cpu
   task_memory     = var.task_memory
   image           = var.image
@@ -33,6 +34,7 @@ module "app" {
   ecs_sg          = [module.security_groups.ecs_tasks]
   alb_sg          = [module.security_groups.alb]
   private_subnets = module.network.private_subnets
+  region          = var.region
   variables       = local.variables
   secrets         = var.secrets
   domain          = var.domain

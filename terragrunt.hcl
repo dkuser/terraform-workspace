@@ -8,6 +8,8 @@ inputs = {
   project = local.common.inputs.project
   environment = local.workspace
   domain = local.common.inputs.domain
+  application = local.common.inputs.application
+  containers = local.common.inputs.containers
 }
 
 remote_state = local.common.remote_state

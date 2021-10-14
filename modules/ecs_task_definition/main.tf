@@ -1,3 +1,11 @@
+locals {
+  family = aws_ecs_task_definition.main.family
+  revision = max(aws_ecs_task_definition.main.revision, data.aws_ecs_task_definition.latest.revision)
+}
+
+data "aws_ecs_task_definition" "latest" {
+  task_definition = aws_ecs_task_definition.main.family
+}
 resource "aws_ecs_task_definition" "main" {
   family                   = "${var.name}-task-${var.environment}"
   network_mode             = var.network_mode
