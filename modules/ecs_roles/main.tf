@@ -58,3 +58,30 @@ resource "aws_iam_policy" "secrets" {
     ]
   })
 }
+
+resource "aws_iam_role_policy_attachment" "ecs-task-role-policy-attachment-for-exec" {
+  role       = aws_iam_role.ecs_task_role.name
+  policy_arn = aws_iam_policy.exec.arn
+}
+
+resource "aws_iam_policy" "exec" {
+  name        = "${var.environment}-task-policy-exec"
+  description = "Policy that allows ecs exec to task"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid = "AccessSecrets"
+        Effect   = "Allow"
+        Action = [
+          "ssmmessages:CreateControlChannel",
+          "ssmmessages:CreateDataChannel",
+          "ssmmessages:OpenControlChannel",
+          "ssmmessages:OpenDataChannel"
+        ]
+        Resource = "*"
+      },
+    ]
+  })
+}

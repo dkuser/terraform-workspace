@@ -7,6 +7,7 @@ resource "aws_ecs_service" "main" {
  deployment_maximum_percent         = var.max_percent
  launch_type                        = var.launch_type
  scheduling_strategy                = var.scheduling_strategy
+ enable_execute_command             = var.enable_execute_command
 
  network_configuration {
    security_groups  = var.security_groups

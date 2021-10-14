@@ -26,3 +26,5 @@ variable "container_port" {
 }
 variable "container_name" {
 }
+variable "enable_execute_command" {
+}
