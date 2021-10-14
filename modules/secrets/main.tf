@@ -1,16 +1,21 @@
-resource "aws_secretsmanager_secret" "application_secrets" {
-  count = length(var.secrets)
-  name  = "${var.name}-secrets-${var.environment}-${element(keys(var.secrets), count.index)}"
+resource "aws_kms_key" "encryption_key" {
+  description             = "This key is used to encrypt SSM '${var.ssm_key_prefix}' parameters"
+  deletion_window_in_days = 10
 }
 
-resource "aws_secretsmanager_secret_version" "application_secrets_values" {
-  count         = length(var.secrets)
-  secret_id     = element(aws_secretsmanager_secret.application_secrets.*.id, count.index)
-  secret_string = element(values(var.secrets), count.index)
+resource "aws_ssm_parameter" "secret_var" {
+  for_each = var.secrets
+
+  name        = "/${var.ssm_key_prefix}/${each.key}"
+  type        = "SecureString"
+  overwrite   = true
+  key_id      = aws_kms_key.encryption_key.arn
+  value       = each.value
 }
 
 locals {
-  secrets = zipmap(keys(var.secrets), aws_secretsmanager_secret_version.application_secrets_values.*.arn)
+  arns = values(aws_ssm_parameter.secret_var)[*].arn
+  secrets = zipmap(keys(var.secrets), local.arns)
 
   secretMap = [for secretKey in keys(var.secrets) : {
     name      = secretKey
