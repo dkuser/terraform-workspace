@@ -120,3 +120,8 @@ resource "aws_iam_user_policy" "ecs_exec" {
     ]
   })
 }
+
+module "cloudtrail" {
+  source = "./modules/cloudtrail"
+  prefix = "${var.project}-dkuser"
+}
