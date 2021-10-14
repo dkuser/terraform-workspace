@@ -1,4 +1,8 @@
-variable "name" {
+variable "project" {
+}
+variable "application" {
+}
+variable "containers" {
 }
 variable "environment" {
 }

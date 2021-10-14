@@ -38,3 +38,7 @@ variable "secrets" {
 }
 variable "domain" {
 }
+variable "application" {
+}
+variable "containers" {
+}

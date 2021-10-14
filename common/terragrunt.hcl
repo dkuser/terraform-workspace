@@ -16,7 +16,7 @@ inputs = {
   region = local.region
   project = local.project
   application = local.application
-  //containers = local.containers
+  containers = local.containers
   domain = local.domain
 }
 

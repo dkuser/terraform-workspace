@@ -2,6 +2,7 @@ locals {
   variables = {
     PORT = var.container_port
   }
+  containers =  jsondecode(var.containers)
 }
 
 module "network" {
@@ -23,7 +24,7 @@ module "app" {
   source          = "./modules/app"
   project         = var.project
   application     = var.application
-  containers      = var.containers
+  containers      = local.containers
   environment     = var.environment
   task_cpu        = var.task_cpu
   task_memory     = var.task_memory
