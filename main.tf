@@ -3,6 +3,7 @@ locals {
     PORT = var.container_port
   }
   containers = jsondecode(var.containers)
+  openvpn_users = []
 }
 
 module "network" {
@@ -39,4 +40,17 @@ module "app" {
   variables       = local.variables
   secrets         = var.secrets
   domain          = var.domain
+}
+
+module "vpn" {
+  source          = "./modules/vpn"
+  domain = var.domain
+  vpn_domain = "vpn.${var.environment}.${var.domain}"
+  subnet_id = module.network.public_subnets[0].id
+  security_groups = module.security_groups
+  users = local.openvpn_users
+  ovpn_config_directory = "generated/vpn/${var.environment}"
+  vpn_pem_file = "generated/ssh_keys/vpn.pem"
+  instance_type = "t3.micro"
+  openvpn_install_script_location = "https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh"
 }
